@@ -2,7 +2,7 @@ import React  from 'react'
 import ProductListItem from './product-list-item'
 
 import {connect} from 'react-redux'
-import {cartItemWithQuantites} from '../cart'
+
 
 
  function ProductListing (props) {
@@ -11,7 +11,9 @@ import {cartItemWithQuantites} from '../cart'
       <div>
        {
          props.products.map( product => 
-           <ProductListItem product={product} addToCart={props.addToCart} cart= {cartItemWithQuantites(props.cart)} />
+           <ProductListItem product={product} addToCart={props.addToCart} 
+           cartItem= {props.cart.filter(cartItem => cartItem.id === product.id)[0]}
+            removeFromCart = {props.removeFromCart} />
          )
          
        }
