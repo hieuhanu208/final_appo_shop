@@ -1,17 +1,22 @@
 import React, { Component } from 'react';
 import Router from './Router'
-import {Link } from 'react-router-dom'
+import {Link ,withRouter} from 'react-router-dom'
+import {connect} from 'react-redux'
 
-const Navigation = (props) => (
+const Navigation = ({cart}) => (
   <nav>
-        <ul>
+        <ul className="top-menu">
           <li>
             <Link to="/">Home</Link>
           </li>
           <li>
-            <Link to="/cart/">Cart</Link>
+            <Link to="/cart/">Cart({ cart.reduce((acc,item) => {
+              return acc + item.quantity
+            },0)})</Link>
           </li>
-          
+          <li>
+            <Link to="/checkout">Checkout</Link>
+          </li> 
         </ul>
       </nav>
 
@@ -19,8 +24,8 @@ const Navigation = (props) => (
 class App extends Component {
   render() {
     return (
-      <div className="App">
-        <Navigation />
+      <div className='page-container'>
+        <Navigation {...this.props} />
 
         <Router/>
       </div>
@@ -28,4 +33,19 @@ class App extends Component {
   }
 }
 
-export default App;
+
+const mapStateToProps = (state) => {
+  return {
+    cart: state.cart
+  }
+}
+
+// const mapDispatchToProps = (dispatch) => {
+//   return {
+//     dispatch1: () => {
+//       dispatch(actionCreator)
+//     }
+//   }
+// }
+
+export default withRouter (connect(mapStateToProps, null)(App))
