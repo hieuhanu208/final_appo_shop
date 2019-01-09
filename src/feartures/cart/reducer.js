@@ -1,3 +1,7 @@
+
+const data = JSON.parse(localStorage.getItem('CART'))
+
+var initialState = data || []
 const cartWithoutItem = (cart, item) => cart.filter(cartItem => cartItem.id !== item.id)
 
 
@@ -21,18 +25,25 @@ const removeAllFromCart = (cart , item) => {
     return [...cartWithoutItem(cart,item)]
 }
 
-const cartReducer = (state = [],action) => {
+const cartReducer = (state = initialState ,action) => {
  switch (action.type) {
    case 'ADD':
-     
+   localStorage.setItem('CART', JSON.stringify(state))
     return addToCart(state,action.payload)
+   
+     
  
    case 'REMOVE':
+   localStorage.setItem('CART', JSON.stringify(state))
    return removeFromCart(state,action.payload)
-
+   
+  
 
    case 'REMOVE_ALL':
+   localStorage.setItem('CART', JSON.stringify(state))
    return removeAllFromCart(state,action.payload)
+  
+  
 
    default:
    return state;

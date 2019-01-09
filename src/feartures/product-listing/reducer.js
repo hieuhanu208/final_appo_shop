@@ -1,3 +1,5 @@
+const data = JSON.parse(localStorage.getItem('CART'))
+
 const productsReducer = (state=[], action) => {
   switch(action.type) {
     case 'LOAD':
