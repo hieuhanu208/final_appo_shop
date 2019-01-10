@@ -28,7 +28,7 @@ const removeAllFromCart = (cart , item) => {
 const cartReducer = (state = initialState ,action) => {
  switch (action.type) {
    case 'ADD':
-   localStorage.setItem('CART', JSON.stringify(state))
+    localStorage.setItem('CART', JSON.stringify(state))
     return addToCart(state,action.payload)
    
      
